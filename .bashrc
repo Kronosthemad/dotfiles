@@ -1,0 +1,1 @@
+/home/kronos/.local/share/mybash/.bashrc
