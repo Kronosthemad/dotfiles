@@ -46,7 +46,10 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-
+beautiful.useless_gap = 4
+beautiful.border_width = 4
+beautiful.border_normal = "#d02518"
+beautiful.border_focus = "#634087"
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
@@ -169,9 +172,9 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
-
+    local tagname = { "1.main", "2.terminal", "3.refrence", "4.audio", "5.filemanager", "6.web", "7.virtulization", "8.sysmonitor", "9.misc" }
     -- Each screen has its own tag table.
-    awful.tag({ "1.main", "2.terminal", "3.refrence", "4.audio", "5.filemanager", "6.web", "7.virtulization", "8.sysmonitor", "9.misc" }, s, awful.layout.layouts[1])
+    awful.tag(tagname, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -564,9 +567,6 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 awful.spawn.with_shell("picom")
 awful.spawn.with_shell("nitrogen --restore")
-beautiful.useless_gaps = 4
-beautiful.border_width = 4
-beautiful.border_color = "#800080"
+
