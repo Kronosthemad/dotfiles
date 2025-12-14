@@ -156,14 +156,15 @@ local tasklist_buttons = gears.table.join(
 
 local function set_wallpaper(s)
     -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
+  --  if beautiful.wallpaper then
+    --    local wallpaper = beautiful.wallpaper
+      --  -- If wallpaper is a function, call it with the screen
+     --   if type(wallpaper) == "function" then
+       --     wallpaper = wallpaper(s)
+       -- end
+       -- gears.wallpaper.maximized(wallpaper, s, true)
+  --  end
+    awful.spawn("nitrogen --restore")
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
@@ -172,7 +173,7 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
-    local tagname = { "1.main", "2.terminal", "3.refrence", "4.audio", "5.filemanager", "6.web", "7.virtulization", "8.sysmonitor", "9.misc" }
+    local tagname = { "1.main", "2.terminal", "3.refrence", "4.audio", "5.filemanager", "6.web", "7.virtulization", "8.sysmonitor", "9.misc", "0.etc" }
     -- Each screen has its own tag table.
     awful.tag(tagname, s, awful.layout.layouts[1])
 
@@ -428,6 +429,52 @@ for i = 1, 9 do
                   {description = "toggle focused client on tag #" .. i, group = "tag"})
     )
 end
+-- Add binding for Tag "0" (which is the 10th tag, so index [10])
+globalkeys = awful.util.table.join(globalkeys,
+    -- View tag "0" (index 10)
+    awful.key({ modkey }, "0",
+              function ()
+                    local screen = awful.screen.focused()
+                    local tag = screen.tags[10]
+                    if tag then
+                       tag:view_only()
+                    end
+              end,
+              {description = "view tag #0", group = "tag"}),
+    -- Toggle tag display "0" (index 10)
+    awful.key({ modkey, "Control" }, "0",
+              function ()
+                    local screen = awful.screen.focused()
+                    local tag = screen.tags[10]
+                    if tag then
+                       awful.tag.viewtoggle(tag)
+                    end
+              end,
+              {description = "toggle tag #0", group = "tag"}),
+    -- Move client to tag "0" (index 10)
+    awful.key({ modkey, "Shift" }, "0",
+              function ()
+                  if client.focus then
+                      local tag = client.focus.screen.tags[10]
+                      if tag then
+                          client.focus:move_to_tag(tag)
+                      end
+                  end
+              end,
+              {description = "move focused client to tag #0", group = "tag"}),
+    -- Toggle tag on focused client.
+    awful.key({ modkey, "Control", "Shift" }, "0",
+              function ()
+                  if client.focus then
+                      local tag = client.focus.screen.tags[10]
+                      if tag then
+                          client.focus:toggle_tag(tag)
+                      end
+                  end
+              end,
+              {description = "toggle focused client on tag #0", group = "tag"})
+
+)
 
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
@@ -568,5 +615,4 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 awful.spawn.with_shell("picom")
-awful.spawn.with_shell("nitrogen --restore")
 
