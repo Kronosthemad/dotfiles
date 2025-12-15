@@ -1,4 +1,5 @@
 function fuckit
-	cd $HOME
+	clear
 	fastfetch
+	cd ~
 end
