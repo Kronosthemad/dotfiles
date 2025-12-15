@@ -14,6 +14,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local freedesktop = require("freedesktop")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -64,8 +65,8 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-   -- awful.layout.suit.floating,
     awful.layout.suit.tile,
+    awful.layout.suit.floating,
    -- awful.layout.suit.tile.left,
    -- awful.layout.suit.tile.bottom,
    -- awful.layout.suit.tile.top,
@@ -86,15 +87,73 @@ awful.layout.layouts = {
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
-   { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end },
+   { "Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end, beautiful.awesome_icon },
+   { "Manual", terminal .. " -e man awesome", beautiful.awesome_icon },
+   { "Edit Config", editor_cmd .. " " .. awesome.conffile, beautiful.awesome_icon },
+   { "Restart", awesome.restart, beautiful.awesome_icon },
+   { "Quit", function() awesome.quit() end, beautiful.awesome_icon },
+}
+chromeapps = {
+	{ "Youtube", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml", beautiful.awesome_icon },
+	{ "Github", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=mjoklplbddabcmpepnokjaffbmgbkkgg", beautiful.awesome_icon }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
+shellmenu = {
+	{ "Fish", terminal .. " -e /usr/bin/fish", beautiful.awesome_icon },
+	{ "Bash", terminal .. " -e /usr/bin/bash", beautiful.awesome_icon },
+	{ "Powershell", terminal .. " -e /usr/bin/pwsh", beautiful.awesome_icon },
+	{ "Nushell", terminal .. " -e /usr/bin/nu", beautiful.awesome_icon }
+}
+
+utilityapps = {
+	{ "Nitrogen", "nitrogen", beautiful.awesome_icon },
+	{ "Boxes", "gnome-boxes", beautiful.awesome_icon },
+	{ "Linutil", terminal .. " -e linutil", beautiful.awesome_icon }
+}
+
+internetapps = {
+	{ "Google Chrome", "google-chrome-stable", beautiful.awesome_icon },
+	{ "Chrome Apps", chromeapps, beautiful.awesome_icon }
+}
+
+mediaapps = {
+	{ "Kdenlive", "kdenlive", beautiful.awesome_icon },
+	{ "Obs-studio", "obs", beautiful.awesome_icon },
+	{ "Qasmixer", "qasmixer", beautiful.awesome_icon },
+	{ "Helvum", "helvum", beautiful.awesome_icon }
+}
+
+systemapps = {
+	{ "Pcmanfm", "pcmanfm", beautiful.awesome_icon },
+	{ "Alacritty", "alacritty", beautiful.awesome_icon },
+	{ "Xterm", "xterm -rv", beautiful.awesome_icon },
+	{ "Rofi", "rofi -show", beautiful.awesome_icon },
+	{ "Shells", shellmenu, beautiful.awesome_icon }
+}
+
+gamemenu = {
+	{ "2048", "gnome-2048", beautiful.awesome_icon },
+	{ "Chess", "gnome-chess", beautiful.awesome_icon },
+	{ "Mahjongg", "gnome-mahjongg", beautiful.awesome_icon },
+	{ "Mines", "gnome-mines", beautiful.awesome_icon }
+}
+
+developmentapps = {
+	{ "Gvim", "gvim", beautiful.awesome_icon },
+	{ "Cmake", "cmake-gui", beautiful.awesome_icon }
+}
+
+appmenu = {
+	{ "Development", developmentapps, beautiful.awesome_icon },
+	{ "Game", gamemenu, beautiful.awesome_icon },
+	{ "Internet", internetapps, beautiful.awesome_icon },
+	{ "Media", mediaapps, beautiful.awesome_icon },
+	{ "System", systemapps, beautiful.awesome_icon },
+	{ "Utility", utilityapps, beautiful.awesome_icon }
+}
+mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesome_icon },
+				    { "Applications", appmenu, beautiful.awesome_icon },
+                                    { "Open Terminal", terminal, beautiful.awesome_icon }
                                   }
                         })
 
@@ -102,7 +161,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
 praisewidget = wibox.widget.textbox()
-praisewidget.text = "You can do this just get through the day!"
+praisewidget.text = "you can do it!"
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
