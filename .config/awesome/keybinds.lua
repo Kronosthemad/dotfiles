@@ -87,6 +87,10 @@ globalkeys = gears.table.join(
               {description = "select next", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
+    awful.key({ modkey            }, "b",     function () awful.spawn("google-chrome-stable") end,
+    	      {description = "launch browser", group = "launcher"}),
+    awful.key({ modkey            }, "y",     function () awful.spawn("chrome-agimnkijcaahngcdmfeangaknmldooml-Default.desktop") end,
+    	      {description = "launch youtube", group = launcher}),
 
     awful.key({ modkey, "Control" }, "n",
               function ()
@@ -258,7 +262,7 @@ globalkeys = gears.table.join(
                   end,
                   {description = "view tag #4", group = "tag"}),
         -- Toggle tag display.
-        awful.key({ modkey, "Control" }, "#4",
+        awful.key({ modkey, "Control" }, "4",
                   function ()
                       local screen = awful.screen.focused()
                       local tag = screen.tags[4]

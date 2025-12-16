@@ -26,7 +26,7 @@ shellmenu = {
 
 utilityapps = {
 	{ "Nitrogen", "nitrogen", beautiful.awesome_icon },
-	{ "Boxes", "gnome-boxes", beautiful.awesome_icon },
+	{ "Boxes", "gnome-boxes", "/usr/share/icons/hicolor/scalable/apps/org.gnome.Boxes.svg" },
 	{ "Linutil", terminal .. " -e linutil", beautiful.awesome_icon }
 }
 
@@ -41,14 +41,23 @@ langsmenu = {
 }
 
 mediaapps = {
-	{ "Kdenlive", "kdenlive", beautiful.awesome_icon },
-	{ "Obs-studio", "obs", beautiful.awesome_icon },
-	{ "Qasmixer", "qasmixer", beautiful.awesome_icon },
-	{ "QasConfig", "qasconfig", beautiful.awesome_icon },
-	{ "Helvum", "helvum", beautiful.awesome_icon },
+	{ "Kdenlive", "kdenlive", "/usr/share/icons/hicolor/scalable/apps/kdenlive.svg" },
+	{ "Obs-studio", "obs", "/usr/share/icons/hicolor/scalable/apps/com.obsproject.Studio.svg" },
+	{ "Qasmixer", "qasmixer", "/usr/share/icons/hicolor/scalable/apps/qasmixer.svg" },
+	{ "QasConfig", "qasconfig", "/usr/share/icons/hicolor/scalable/apps/qasconfig.svg" },
+	{ "Helvum", "helvum", "/usr/share/icons/hicolor/scalable/apps/org.pipewre.Helvum.svg" },
 	{ "Wiremix", terminal .. " -e wiremix", beautiful.awesome_icon }
 }
 
+officeapps = {
+	{ "LibreOffice", "libreoffice", "/usr/share/icons/hicolor/scalable/apps/libreoffice-main.svg" },
+	{ "LibreOffice Base", "libreoffice --base", "/usr/share/icons/hicolor/scalable/apps/libreoffice-base.svg" },
+	{ "LibreOffice Base", "libreoffice --calc", "/usr/share/icons/hicolor/scalable/apps/libreoffice-calc.svg" },
+	{ "LibreOffice Base", "libreoffice --draw", "/usr/share/icons/hicolor/scalable/apps/libreoffice-draw.svg" },
+	{ "LibreOffice Base", "libreoffice --impress", "/usr/share/icons/hicolor/scalable/apps/libreoffice-impress.svg" },
+	{ "LibreOffice Base", "libreoffice --math", "/usr/share/icons/hicolor/scalable/apps/libreoffice-math.svg" },
+	{ "LibreOffice Base", "libreoffice --writer", "/usr/share/icons/hicolor/scalable/apps/libreoffice-writer.svg" }
+}
 systemapps = {
 	{ "Pcmanfm", "pcmanfm", beautiful.awesome_icon },
 	{ "Alacritty", "alacritty", beautiful.awesome_icon },
@@ -58,10 +67,10 @@ systemapps = {
 }
 
 gamemenu = {
-	{ "2048", "gnome-2048", beautiful.awesome_icon },
-	{ "Chess", "gnome-chess", beautiful.awesome_icon },
-	{ "Mahjongg", "gnome-mahjongg", beautiful.awesome_icon },
-	{ "Mines", "gnome-mines", beautiful.awesome_icon }
+	{ "2048", "gnome-2048", "/usr/share/icons/hicolor/scalable/apps/org.gnome.TwentyFortyEight.svg" },
+	{ "Chess", "gnome-chess", "/usr/share/icons/hicolor/scalable/apps/org.gnome.Chess.svg" },
+	{ "Mahjongg", "gnome-mahjongg", "/usr/share/icons/hicolor/scalable/apps/org.gnome.Mahjongg.svg" },
+	{ "Mines", "gnome-mines", "/usr/share/icons/hicolor/scalable/apps/org.gnome.Mines.svg" }
 }
 
 developmentapps = {
@@ -75,6 +84,7 @@ appmenu = {
 	{ "Game", gamemenu, beautiful.awesome_icon },
 	{ "Internet", internetapps, beautiful.awesome_icon },
 	{ "Media", mediaapps, beautiful.awesome_icon },
+	{ "Office", officeapps, beautiful.awesome_icon },
 	{ "System", systemapps, beautiful.awesome_icon },
 	{ "Utility", utilityapps, beautiful.awesome_icon }
 }
