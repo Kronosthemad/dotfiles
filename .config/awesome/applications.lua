@@ -8,8 +8,7 @@ terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
-
+beautiful.init(gears.filesystem.get_configuration_dir() .. "zenburn/theme.lua")
 
 
 chromeapps = {
@@ -99,8 +98,6 @@ myawesomemenu = {
    { "Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end, beautiful.awesome_icon },
    { "Manual", terminal .. " -e man awesome", beautiful.awesome_icon },
    { "Edit Config", editor_cmd .. " " .. awesome.conffile, beautiful.awesome_icon },
-   { "Restart", awesome.restart, beautiful.awesome_icon },
-   { "Quit", function() awesome.quit() end, beautiful.awesome_icon },
 }
 
 mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesome_icon },

@@ -21,6 +21,8 @@ local calendar_widget = require("widgets.calendar-widget.calendar")
 local ram_widget = require("widgets.ram-widget.ram-widget")
 local pacman_widget = require('widgets.pacman-widget.pacman')
 local fs_widget = require("widgets.fs-widget.fs-widget")
+local logout_menu_widget = require("widgets.logout-menu-widget.logout-menu")
+
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -51,7 +53,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "zenburn/theme.lua")
 beautiful.useless_gap = 4
 beautiful.border_width = 4
 beautiful.border_normal = "#d02518"
@@ -91,7 +93,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
 praisewidget = wibox.widget.textbox()
-praisewidget.text = "you can do it!"
+praisewidget.text = "keep going!"
 -- Menubar configuration
 -- }}}
 
@@ -198,8 +200,10 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
-            fs_widget({ mounts = { '/', '/home' } }), 
+            logout_menu_widget(),
             s.mytaglist,
+            fs_widget({ mounts = { '/', '/home' } }), 
+            
 	    {
 	  	layout = awful.widget.only_on_screen,
 		screen = "primary",

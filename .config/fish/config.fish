@@ -3,7 +3,7 @@ if status is-interactive
     abbr ls "ls -a"
     abbr dgit "dotfiles-git"
     set -gx PATH /home/linuxbrew/.linuxbrew/bin:$PATH
-    fastfetch
+    #fastfetch
 end
 alias dotfiles-git "git --work-tree=$HOME --git-dir=$HOME/dotfiles" 
 
