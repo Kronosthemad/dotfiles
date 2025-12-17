@@ -15,10 +15,15 @@ local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local mymainmenu = require("applications")
 local keybinds = require("keybinds")
+local cpu_widget = require("widgets.cpu-widget.cpu-widget")
+local volume_widget = require('widgets.volume-widget.volume')
+local calendar_widget = require("widgets.calendar-widget.calendar")
+local ram_widget = require("widgets.ram-widget.ram-widget")
+local pacman_widget = require('widgets.pacman-widget.pacman')
+local fs_widget = require("widgets.fs-widget.fs-widget")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
-
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -193,12 +198,14 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
+            fs_widget({ mounts = { '/', '/home' } }), 
             s.mytaglist,
 	    {
 	  	layout = awful.widget.only_on_screen,
 		screen = "primary",
 	    	praisewidget,
     	    },
+	    ram_widget(),
             s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
@@ -209,7 +216,20 @@ awful.screen.connect_for_each_screen(function(s)
 		screen = "primary",
             	mykeyboardlayout,
             	wibox.widget.systray(),
+		 volume_widget{
+			wiget_type = "arc"
+		 },
+         pacman_widget {
+            interval = 600, -- Refresh every 10 minutes
+            popup_bg_color = '#222222',
+            popup_border_width = 1,
+            popup_border_color = '#7e7e7e',
+            popup_height = 10,  -- 10 packages shown in scrollable window
+            popup_width = 300,
+            polkit_agent_path = '/usr/bin/lxpolkit'
+        },
     	    },
+	    cpu_widget(),
             mytextclock,
             s.mylayoutbox,
         },
@@ -226,6 +246,15 @@ root.buttons(gears.table.join(
 -- }}}
 
 
+local cw = calendar_widget({
+    theme = 'outrun',
+    placement = 'top_right',
+    start_sunday = true,
+    radius = 8,
+-- with customized next/previous (see table above)
+    previous_month_button = 1,
+    next_month_button = 3
+})
 
 
 clientbuttons = gears.table.join(
@@ -362,6 +391,11 @@ end)
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
+
+mytextclock:connect_signal("button::press",
+    function(_, _, _, button)
+        if button == 1 then cw.toggle() end
+    end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)

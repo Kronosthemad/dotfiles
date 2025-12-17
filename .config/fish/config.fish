@@ -2,7 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     abbr ls "ls -a"
     abbr dgit "dotfiles-git"
-
+    set -gx PATH /home/linuxbrew/.linuxbrew/bin:$PATH
     fastfetch
 end
 alias dotfiles-git "git --work-tree=$HOME --git-dir=$HOME/dotfiles" 
@@ -107,3 +107,5 @@ alias zi=__zoxide_zi
 # ~/.config/fish/config.fish):
 #
 #   zoxide init fish | source
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

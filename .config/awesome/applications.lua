@@ -14,7 +14,9 @@ beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 
 chromeapps = {
 	{ "Youtube", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml", beautiful.awesome_icon },
-	{ "Github", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=mjoklplbddabcmpepnokjaffbmgbkkgg", beautiful.awesome_icon }
+	{ "Github", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=mjoklplbddabcmpepnokjaffbmgbkkgg", beautiful.awesome_icon },
+	{ "Google Drive", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=aghbiahbpaijignceidepookljebhfak", beautiful.awesome_icon },
+	{ "Youtube Music", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=cinhimbnkkaeohfgghhklpknlkffjgod", beautiful.awesome_icon }
 }
 
 shellmenu = {
@@ -27,6 +29,7 @@ shellmenu = {
 utilityapps = {
 	{ "Nitrogen", "nitrogen", beautiful.awesome_icon },
 	{ "Boxes", "gnome-boxes", "/usr/share/icons/hicolor/scalable/apps/org.gnome.Boxes.svg" },
+	{ "Virtual Machine Manager", "virt-manager", beautiful.Awesome_icon },
 	{ "Linutil", terminal .. " -e linutil", beautiful.awesome_icon }
 }
 
@@ -61,7 +64,9 @@ officeapps = {
 systemapps = {
 	{ "Pcmanfm", "pcmanfm", beautiful.awesome_icon },
 	{ "Alacritty", "alacritty", beautiful.awesome_icon },
+	{ "App Editor", "/app/bin/appeditor-wrapper", beautiful.awsome_icon },
 	{ "Xterm", "xterm -rv", beautiful.awesome_icon },
+	{ "Btop", terminal .. " -e btop", beautiful.awesome_icon },
 	{ "Rofi", "rofi -show", beautiful.awesome_icon },
 	{ "Shells", shellmenu, beautiful.awesome_icon }
 }
@@ -70,6 +75,7 @@ gamemenu = {
 	{ "2048", "gnome-2048", "/usr/share/icons/hicolor/scalable/apps/org.gnome.TwentyFortyEight.svg" },
 	{ "Chess", "gnome-chess", "/usr/share/icons/hicolor/scalable/apps/org.gnome.Chess.svg" },
 	{ "Mahjongg", "gnome-mahjongg", "/usr/share/icons/hicolor/scalable/apps/org.gnome.Mahjongg.svg" },
+	{ "Morrowind", "steam steam://rungameid/22320", beautiful.awesome_icon },
 	{ "Mines", "gnome-mines", "/usr/share/icons/hicolor/scalable/apps/org.gnome.Mines.svg" }
 }
 
