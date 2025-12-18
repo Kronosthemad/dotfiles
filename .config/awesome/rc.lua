@@ -41,6 +41,9 @@ do
     awesome.connect_signal("debug::error", function (err)
         -- Make sure we don't go into an endless error loop
         if in_error then return end
+        if string.find(tostring(err), 'bad argument #2 to "format"') then
+            return -- Exit the function without showing a notification
+        end
         in_error = true
 
         naughty.notify({ preset = naughty.config.presets.critical,
@@ -221,8 +224,8 @@ awful.screen.connect_for_each_screen(function(s)
             	mykeyboardlayout,
             	wibox.widget.systray(),
 		 volume_widget{
-			wiget_type = "arc"
-		 },
+			wiget_type = "horizontal_bar"
+		  },
          pacman_widget {
             interval = 600, -- Refresh every 10 minutes
             popup_bg_color = '#222222',

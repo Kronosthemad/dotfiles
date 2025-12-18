@@ -15,7 +15,7 @@ local mymainmenu = require("applications")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 local menubar = require("menubar")
-local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
+local volume_widget = require('widgets.volume-widget.volume')
 modkey = "Mod4"
 
 keybinds = {-- {{{ Key bindings
@@ -548,9 +548,9 @@ globalkeys = gears.table.join(
                   end
               end,
               {description = "toggle focused client on tag #0", group = "tag"}),
-	awful.key({ modkey }, "]", function() volume_widget:inc(5) end,
+	awful.key({ modkey }, "]", function() volume_widget:inc() end,
 		  { description = "Volume up", group = "Widget" }),
-	awful.key({ modkey }, "[", function() volume_widget:dec(5) end,
+	awful.key({ modkey }, "[", function() volume_widget:dec() end,
 	 	  {description = "Volume Down", group = "Widget"}),
 	awful.key({ modkey }, "\\", function() volume_widget:toggle() end,
 	  	  { description = "Mute Volume", group = "Widget" })

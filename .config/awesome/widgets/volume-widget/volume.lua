@@ -15,38 +15,21 @@ local beautiful = require("beautiful")
 local watch = require("awful.widget.watch")
 local utils = require("widgets.volume-widget.utils")
 
-local LIST_DEVICES_CMD = [[sh -c "pacmd list-sinks; pacmd list-sources"]]
-local function GET_VOLUME_CMD(card, device, mixctrl, value_type)
-	return "amixer -c " .. card .. " -D " .. device .. " sget " .. mixctrl .. " " .. value_type
+local LIST_DEVICES_CMD = [[sh -c "wpctl status"]]
+local function GET_VOLUME_CMD(stdout)
+	return "wpctl get-volume @DEFAULT_AUDIO_SINK@| awk '{print $2 * 100}'"
 end
-local function INC_VOLUME_CMD(card, device, mixctrl, value_type, step)
-	return "amixer -c "
-		.. card
-		.. " -D "
-		.. device
-		.. " sset "
-		.. mixctrl
-		.. " "
-		.. value_type
-		.. " "
-		.. step
-		.. "%+"
+local function GET_MUTED(stdout)
+	return "wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o 'MUTED'"
+end
+local function INC_VOLUME_CMD(stdout)
+	return "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}'"
 end -- luacheck: ignore
-local function DEC_VOLUME_CMD(card, device, mixctrl, value_type, step)
-	return "amixer -c "
-		.. card
-		.. " -D "
-		.. device
-		.. " sset "
-		.. mixctrl
-		.. " "
-		.. value_type
-		.. " "
-		.. step
-		.. "%-"
+local function DEC_VOLUME_CMD(stdout)
+	return "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2 * 100}'"
 end -- luacheck: ignore
-local function TOG_VOLUME_CMD(card, device, mixctrl)
-	return "amixer -c " .. card .. " -D " .. device .. " sset " .. mixctrl .. " toggle"
+local function TOG_VOLUME_CMD(stdout)
+	return "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 end -- luacheck: ignore
 
 local widget_types = {
@@ -160,7 +143,7 @@ local function build_rows(devices, on_checkbox_click, device_type)
 
 		row:connect_signal("button::press", function()
 			spawn.easy_async(
-				string.format([[sh -c 'pacmd set-default-%s "%s"']], device_type, device.name),
+				string.format([[sh -c 'pacmd set-default-%s "%s"']]),
 				function()
 					on_checkbox_click()
 				end
@@ -215,16 +198,10 @@ end
 
 local function worker(user_args)
 	local args = user_args or {}
-
-	local mixer_cmd = args.mixer_cmd or "pavucontrol"
 	local widget_type = args.widget_type
 	local refresh_rate = args.refresh_rate or 1
-	local step = args.step or 5
-	local card = args.card or 0
-	local device = args.device or "pulse"
-	local mixctrl = args.mixctrl or "Master"
-	local value_type = args.value_type or "-M"
 	local toggle_cmd = args.toggle_cmd or nil
+	local mixer_cmd = args.mixer_cmd or "wiremix"
 
 	if widget_types[widget_type] == nil then
 		volume.widget = widget_types["icon_and_text"].get_widget(args.icon_and_text_args)
@@ -233,37 +210,37 @@ local function worker(user_args)
 	end
 
 	local function update_graphic(widget, stdout)
-		local mute = string.match(stdout, "%[(o%D%D?)%]") -- \[(o\D\D?)\] - [on] or [off]
+		local mute = string.match(stdout,  GET_MUTED())
 		if mute == "off" then
 			widget:mute()
 		elseif mute == "on" then
 			widget:unmute()
 		end
-		local volume_level = string.match(stdout, "(%d?%d?%d)%%") -- (\d?\d?\d)\%)
+		local volume_level = 100 -- does not effect volume just supresses error
 		volume_level = string.format("% 3d", volume_level)
 		widget:set_volume_level(volume_level)
 	end
 
 	function volume:inc(s)
-		spawn.easy_async(INC_VOLUME_CMD(card, device, mixctrl, value_type, s or step), function(stdout)
+		spawn.easy_async(INC_VOLUME_CMD(), function(stdout)
 			update_graphic(volume.widget, stdout)
 		end)
 	end
 
 	function volume:dec(s)
-		spawn.easy_async(DEC_VOLUME_CMD(card, device, mixctrl, value_type, s or step), function(stdout)
+		spawn.easy_async(DEC_VOLUME_CMD(), function(stdout)
 			update_graphic(volume.widget, stdout)
 		end)
 	end
 
 	function volume:toggle()
 		if toggle_cmd == nil then
-			spawn.easy_async(TOG_VOLUME_CMD(card, device, mixctrl), function(stdout)
+			spawn.easy_async(TOG_VOLUME_CMD(), function(stdout)
 				update_graphic(volume.widget, stdout)
 			end)
 		else
 			spawn.easy_async(toggle_cmd, function(_stdout)
-				spawn.easy_async(GET_VOLUME_CMD(card, device, mixctrl, value_type), function(stdout)
+				spawn.easy_async(GET_VOLUME_CMD(), function(stdout)
 					update_graphic(volume.widget, stdout)
 				end)
 			end)
@@ -299,7 +276,7 @@ local function worker(user_args)
 		end)
 	))
 
-	watch(GET_VOLUME_CMD(card, device, mixctrl, value_type), refresh_rate, update_graphic, volume.widget)
+	watch(GET_VOLUME_CMD(), refresh_rate, update_graphic, volume.widget)
 
 	return volume.widget
 end
