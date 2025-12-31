@@ -1,11 +1,37 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
-    abbr ls "ls -a"
     abbr dgit "dotfiles-git"
-    set -gx PATH /home/linuxbrew/.linuxbrew/bin:$PATH
-    #fastfetch
+    abbr pacman "pacman --color="always""
+    abbr matrix "cmatrix -s"
+    set -g PATH /home/linuxbrew/.linuxbrew/bin:$PATH
+    set -g EDITOR  vim
+    set -g VISUAL  gvim
+    set -g PATH  "$HOME/bin:$PATH"  # Commands to run in interactive sessions can go here
+    set -g PATH  "$HOME/.local/bin:$PATH"
+    set -g PATH  "$HOME/.cargo/bin:$PATH"
+    set -g Path  "$HOME/.powershell:$PATH"
+    set -g PATH  "$HOME/.dotnet:$PATH"
+    set -g PATH  "/usr/bin:$PATH"
+    set -g PATH  "/root/.cargo/bin:$PATH"
+    pokemon
 end
 alias dotfiles-git "git --work-tree=$HOME --git-dir=$HOME/dotfiles" 
+alias ls "eza -l -A --group-directories-first -h --tree --level 1 --git --classify --icons always --hyperlink --mounts --classify"
+
+if status is-login
+  # Commands to run in login shells can go here
+  if test -f ~/.profile
+    source ~/.profile
+  end
+  set -g EDITOR  vim
+  set -g PATH  "$HOME/bin:$PATH"
+  set -g PATH  "$HOME/.local/bin:$PATH"
+  set -g PATH  "$HOME/.cargo/bin:$PATH"
+  set -g Path  "$HOME/.powershell:$PATH"
+  set -g PATH  "$HOME/.dotnet:$PATH"
+  set -g PATH  "/usr/bin:$PATH"
+  set -g PATH  "/root/.cargo/bin:$PATH"
+end
 
 # =============================================================================
 #

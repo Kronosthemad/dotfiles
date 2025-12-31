@@ -32,7 +32,9 @@ require("awful.hotkeys_popup.keys")
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
+                     text = awesome.startup_errors,
+		     icon = "/usr/share/icons/Pop/scalable/status/dialog-error-symbolic.svg"
+	     })
 end
 
 -- Handle runtime errors after startup
@@ -48,7 +50,9 @@ do
 
         naughty.notify({ preset = naughty.config.presets.critical,
                          title = "Oops, an error happened!",
-                         text = tostring(err) })
+                         text = tostring(err),
+			 icon = "/usr/share/icons/Pop/scalable/status/dialog-warning-symbolic.svg"
+		 })
         in_error = false
     end)
 end
@@ -195,7 +199,11 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({
+        position = "top",
+        screen = s,
+        bg = "#634087"
+    })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -205,15 +213,15 @@ awful.screen.connect_for_each_screen(function(s)
             mylauncher,
             logout_menu_widget(),
             s.mytaglist,
+	    cpu_widget(),
+	    ram_widget(),
             fs_widget({ mounts = { '/', '/home' } }), 
-            
 	    {
 	  	layout = awful.widget.only_on_screen,
 		screen = "primary",
 	    	praisewidget,
     	    },
-	    ram_widget(),
-            s.mypromptbox,
+	    s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
@@ -223,10 +231,10 @@ awful.screen.connect_for_each_screen(function(s)
 		screen = "primary",
             	mykeyboardlayout,
             	wibox.widget.systray(),
-		 volume_widget{
+		volume_widget{
 			wiget_type = "horizontal_bar"
-		  },
-         pacman_widget {
+		 },
+        pacman_widget {
             interval = 600, -- Refresh every 10 minutes
             popup_bg_color = '#222222',
             popup_border_width = 1,
@@ -235,9 +243,8 @@ awful.screen.connect_for_each_screen(function(s)
             popup_width = 300,
             polkit_agent_path = '/usr/bin/lxpolkit'
         },
-    	    },
-	    cpu_widget(),
-            mytextclock,
+       	  },
+	    mytextclock,
             s.mylayoutbox,
         },
     }
@@ -344,7 +351,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
-    -- if not awesome.startup then awful.client.setslave(c) end
+    if not awesome.startup then awful.client.setslave(c) end
 
     if awesome.startup
       and not c.size_hints.user_position
@@ -409,3 +416,31 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 awful.spawn.with_shell("picom")
 
+client.connect_signal("tagged", function(c, t)
+    local ref_name = "3.refrence"
+
+    -- Only run if the tag being interacted with is our reference tag
+    if t.name == ref_name then
+        for s in screen do
+            -- Find the reference tag on the other screens
+            local target_tag = awful.tag.find_by_name(s, ref_name)
+
+            -- If we found a tag on another screen with the same name...
+            if target_tag and t ~= target_tag then
+                -- Check if the client is ALREADY on that target tag
+                local is_already_there = false
+                for _, existing_tag in ipairs(c:tags()) do
+                    if existing_tag == target_tag then
+                        is_already_there = true
+                        break
+                    end
+                end
+
+                -- Only add the tag if it's not already there (prevents the crash)
+                if not is_already_there then
+                    c:toggle_tag(target_tag)
+                end
+            end
+        end
+    end
+end)

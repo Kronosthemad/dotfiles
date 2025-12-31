@@ -90,8 +90,8 @@ globalkeys = gears.table.join(
               {description = "select previous", group = "layout"}),
     awful.key({ modkey            }, "b",     function () awful.spawn("google-chrome-stable") end,
     	      {description = "launch browser", group = "launcher"}),
-    awful.key({ modkey            }, "y",     function () awful.spawn("chrome-agimnkijcaahngcdmfeangaknmldooml-Default.desktop") end,
-    	      {description = "launch youtube", group = launcher}),
+    awful.key({ modkey            }, "y",     function () awful.spawn("/opt/google/chrome/google-chrome --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml") end,
+    	      {description = "launch youtube", group = "launcher"}),
 
     awful.key({ modkey, "Control" }, "n",
               function ()
@@ -108,6 +108,10 @@ globalkeys = gears.table.join(
     -- Prompt
     awful.key({ modkey },            "r",    function () awful.spawn("rofi -show drun") end, 
               {description = "run prompt", group = "launcher"}),
+    awful.key({ modkey },             "v",     function() awful.spawn("code") end,
+    	      { description = "Launch VScode", group = "launcher" }), 
+    awful.key({ modkey },             "g",     function() awful.spawn("gvim") end,
+    	      { description = "Launch Gvim",   group = "launcher" }),
 
     awful.key({ modkey }, "x",
               function ()

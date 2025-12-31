@@ -4,7 +4,7 @@ working_directory = "None"
 
 # Themes --
 import = [ 
-  "/home/kronos/.config/alacritty/themes/alacritty-theme/themes/terminal_app.toml",
+  "/home/kronos/.config/alacritty/themes/alacritty-theme/themes/hyper.toml",
   "~/.config/alacritty/keybinds.toml"
 ]
 

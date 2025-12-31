@@ -14,8 +14,17 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "zenburn/theme.lua")
 chromeapps = {
 	{ "Youtube", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml", beautiful.awesome_icon },
 	{ "Github", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=mjoklplbddabcmpepnokjaffbmgbkkgg", beautiful.awesome_icon },
+	{ "Github Docs", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=hdgllcpmkphgagldcgmpkghcmaklnbai", beautiful.awesome_icon },
+	{ "Google Docs", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=aohghmighlieiainnegkcijnfilokake", beautiful.awesome_icon },
+	{ "Google Sheets", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=felcaaldnbdncclmgdcncolpebgiejap", beautiful.awesome_icon },
+	{ "Google Slides", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=boadgeojelhgndaghljhdicfkmllpafd", beautiful.awesome_icon },
+	{ "Google Calendar", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=ejjicmeblgpmajnghnpcppodonldlgfn", beautiful.awesome_icon },
 	{ "Google Drive", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=aghbiahbpaijignceidepookljebhfak", beautiful.awesome_icon },
-	{ "Youtube Music", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=cinhimbnkkaeohfgghhklpknlkffjgod", beautiful.awesome_icon }
+	{ "Youtube Music", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=cinhimbnkkaeohfgghhklpknlkffjgod", beautiful.awesome_icon },
+	{ "Google Developer", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=mhjfbmdgcfjbbpaeojofohoefgiehjai", beautiful.awesome_icon },
+	{ "Google Tasks", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=ejjicmeblgpmajnghnpcppodonldlgfn", beautiful.awesome_icon },
+	{ "Google Keep", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=hmjkmjkepdijhoojdojkdfohbdgmmhki", beautiful.awesome_icon },
+	{ "Chrome Remote Desktop", "/opt/google/chrome/google-chrome --profile-directory=Default --app-id=nolnjjmnngadpklecpnddfebfphgpgdi", beautiful.awesome_icon }
 }
 
 shellmenu = {
@@ -29,7 +38,9 @@ utilityapps = {
 	{ "Nitrogen", "nitrogen", beautiful.awesome_icon },
 	{ "Boxes", "gnome-boxes", "/usr/share/icons/hicolor/scalable/apps/org.gnome.Boxes.svg" },
 	{ "Virtual Machine Manager", "virt-manager", beautiful.Awesome_icon },
-	{ "Linutil", terminal .. " -e linutil", beautiful.awesome_icon }
+	{ "Linutil", terminal .. " -e linutil", beautiful.awesome_icon },
+	{ "Warehouse", "/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=warehouse --file-forwarding io.github.flattool.Warehouse @@ %F @@", beautiful.awesome_icon },
+	{ "Mission Center", "/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=missioncenter io.missioncenter.MissionCenter", beautiful.awesome_icon }
 }
 
 internetapps = {
@@ -39,7 +50,9 @@ internetapps = {
 
 langsmenu = {
 	{ "Python", terminal .. " -e python3", beautiful.awesome_icon },
-	{ "Lua", terminal .. " -e lua", beautiful.awesome_icon }
+	{ "Lua", terminal .. " -e lua", beautiful.awesome_icon },
+	{ "Ruby", terminal .. " -e irb", beautiful.awesome_icon },
+	{ "Nodejs", terminal .. " -e node", beautiful.awesome_icon }
 }
 
 mediaapps = {
@@ -80,6 +93,7 @@ gamemenu = {
 
 developmentapps = {
 	{ "Gvim", "gvim", beautiful.awesome_icon },
+	{ "Visual Studio Code", "code", beautiful.awesome_icon },
 	{ "Cmake", "cmake-gui", beautiful.awesome_icon },
 	{ "Languages", langsmenu, beautiful.awesome_icon }
 }

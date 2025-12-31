@@ -1,0 +1,81 @@
+ls
+pwd
+ls -a
+cd .config
+ls
+cd nushell
+ls
+cat config.nu
+cat env.nu
+vim config.nu
+exit
+ls
+ls -a
+alias ls = ls -a
+la
+ls
+cd .config/nushell/
+ls
+vim config.nu
+ls
+cls
+exit
+nu
+exit
+cls
+ls
+vim .config/nushell/config.nu
+exit
+cls
+sudo pacman -S fish
+fish
+exit
+cls
+vim config.nu
+exit
+cls
+exit
+ls
+..
+ls
+cd .config
+ls
+cd /
+ls
+cd etc
+ls
+cd xdg
+ls
+cd menus/
+ls
+cd
+ls
+help
+ls | sort-by size
+ip 
+ip -a
+ip adress
+ip address
+ip address | sort 
+cls
+ls
+man nu
+man nushell
+cd .config
+ls
+cd nushell
+ld
+ls
+help
+help commands
+help plugin
+plugin list
+plugin add nu_plugin_inc
+plugin us inc
+plugin use inc
+plugin list
+cls
+exit
+mv PowerShell powershell
+ls
+exit
