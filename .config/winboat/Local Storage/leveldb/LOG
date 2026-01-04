@@ -1,3 +1,3 @@
-2025/12/18-23:42:18.170 837af Reusing MANIFEST /home/kronos/.config/winboat/Local Storage/leveldb/MANIFEST-000001
-2025/12/18-23:42:18.218 837af Recovering log #3
-2025/12/18-23:42:18.218 837af Reusing old log /home/kronos/.config/winboat/Local Storage/leveldb/000003.log 
+2025/12/30-21:34:30.858 1ca148 Reusing MANIFEST /home/kronos/.config/winboat/Local Storage/leveldb/MANIFEST-000001
+2025/12/30-21:34:30.910 1ca148 Recovering log #3
+2025/12/30-21:34:30.910 1ca148 Reusing old log /home/kronos/.config/winboat/Local Storage/leveldb/000003.log 

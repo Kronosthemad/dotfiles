@@ -13,6 +13,7 @@ if status is-interactive
     set -g PATH  "$HOME/.dotnet:$PATH"
     set -g PATH  "/usr/bin:$PATH"
     set -g PATH  "/root/.cargo/bin:$PATH"
+    set -g PATH  "$HOME/.nix-profile/bin:$PATH"
     pokemon
 end
 alias dotfiles-git "git --work-tree=$HOME --git-dir=$HOME/dotfiles" 
@@ -135,3 +136,7 @@ alias zi=__zoxide_zi
 #   zoxide init fish | source
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Direnv activation
+direnv hook fish | source
+

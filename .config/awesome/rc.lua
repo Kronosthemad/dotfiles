@@ -322,7 +322,10 @@ awful.rules.rules = {
           "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
           "Wpa_gui",
           "veromix",
-          "xtightvncviewer"},
+          "xtightvncviewer",
+          "tk",
+  	  "Tk"},
+
 
         -- Note that the name property shown in xprop might be set slightly after creation of the client
         -- and the name shown there might not match defined rules here.
@@ -415,32 +418,3 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 awful.spawn.with_shell("picom")
-
-client.connect_signal("tagged", function(c, t)
-    local ref_name = "3.refrence"
-
-    -- Only run if the tag being interacted with is our reference tag
-    if t.name == ref_name then
-        for s in screen do
-            -- Find the reference tag on the other screens
-            local target_tag = awful.tag.find_by_name(s, ref_name)
-
-            -- If we found a tag on another screen with the same name...
-            if target_tag and t ~= target_tag then
-                -- Check if the client is ALREADY on that target tag
-                local is_already_there = false
-                for _, existing_tag in ipairs(c:tags()) do
-                    if existing_tag == target_tag then
-                        is_already_there = true
-                        break
-                    end
-                end
-
-                -- Only add the tag if it's not already there (prevents the crash)
-                if not is_already_there then
-                    c:toggle_tag(target_tag)
-                end
-            end
-        end
-    end
-end)
