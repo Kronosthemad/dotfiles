@@ -49,7 +49,7 @@ do
         in_error = true
 
         naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
+                         title = "Oops, you messed up something, an error happened!",
                          text = tostring(err),
 			 icon = "/usr/share/icons/Pop/scalable/status/dialog-warning-symbolic.svg"
 		 })
@@ -60,7 +60,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "zenburn/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "themes/zenburn/theme.lua")
 beautiful.useless_gap = 4
 beautiful.border_width = 4
 beautiful.border_normal = "#d02518"

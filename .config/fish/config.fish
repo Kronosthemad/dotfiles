@@ -1,9 +1,12 @@
+#####################################################################################################################################################
+#                                                interactive setup                                                                                  #
+#####################################################################################################################################################
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
     abbr dgit "dotfiles-git"
     abbr pacman "pacman --color="always""
     abbr matrix "cmatrix -s"
-    set -g PATH /home/linuxbrew/.linuxbrew/bin:$PATH
     set -g EDITOR  vim
     set -g VISUAL  gvim
     set -g PATH  "$HOME/bin:$PATH"  # Commands to run in interactive sessions can go here
@@ -14,10 +17,17 @@ if status is-interactive
     set -g PATH  "/usr/bin:$PATH"
     set -g PATH  "/root/.cargo/bin:$PATH"
     set -g PATH  "$HOME/.nix-profile/bin:$PATH"
-    pokemon
+    fastfetch
 end
+
+######################################################################################################################################################
+#                                                            alias block                                                                             #
+######################################################################################################################################################
+
 alias dotfiles-git "git --work-tree=$HOME --git-dir=$HOME/dotfiles" 
 alias ls "eza -l -A --group-directories-first -h --tree --level 1 --git --classify --icons always --hyperlink --mounts --classify"
+alias ... " cd ../.."
+alias .... "cd ../../.."
 
 if status is-login
   # Commands to run in login shells can go here
@@ -33,6 +43,11 @@ if status is-login
   set -g PATH  "/usr/bin:$PATH"
   set -g PATH  "/root/.cargo/bin:$PATH"
 end
+
+######################################################################################################################################################
+#                                                              extra stuff for any instance                                                          #
+######################################################################################################################################################
+
 
 # =============================================================================
 #
@@ -135,7 +150,6 @@ alias zi=__zoxide_zi
 #
 #   zoxide init fish | source
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Direnv activation
 direnv hook fish | source
