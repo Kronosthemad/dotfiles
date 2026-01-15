@@ -4,7 +4,7 @@ working_directory = "None"
 
 # Themes --
 import = [ 
-  "/home/kronos/.config/alacritty/themes/alacritty-theme/themes/hyper.toml",
+  "/home/kronos/.config/alacritty/themes/alacritty-theme/themes/zenburn.toml",
   "~/.config/alacritty/keybinds.toml"
 ]
 
@@ -12,7 +12,7 @@ import = [
 title = "Alacritty"
 decorations = "none"
 blur = true
-opacity = 0.8
+opacity = 0.6
 padding.x = 10
 padding.y = 10
 
@@ -31,7 +31,7 @@ draw_bold_text_with_bright_colors = true
 
 [env]
 TERM = "xterm-256color"
-SHELL = "/usr/bin/fish"
+SHELL = "/home/kronos/xonsh-env/bin/startshell.sh"
 
 [font]
 #glyph_offset = { x = 1, y = 0 }

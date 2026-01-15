@@ -153,15 +153,18 @@ local tasklist_buttons = gears.table.join(
 
 local function set_wallpaper(s)
     -- Wallpaper
-  --  if beautiful.wallpaper then
-    --    local wallpaper = beautiful.wallpaper
-      --  -- If wallpaper is a function, call it with the screen
-     --   if type(wallpaper) == "function" then
-       --     wallpaper = wallpaper(s)
-       -- end
-       -- gears.wallpaper.maximized(wallpaper, s, true)
-  --  end
-    awful.spawn("nitrogen --restore")
+    if beautiful.wallpaper then
+        local wallpaper = beautiful.wallpaper
+        -- If wallpaper is a function, call it with the screen
+        if type(wallpaper) == "function" then
+            wallpaper = wallpaper(s)
+        end
+        gears.wallpaper.maximized(wallpaper, s, true)
+    elseif awful.spawn("nitrogen") then
+        awful.spawn("nitrogen --restore")
+    else
+        awful.spawn("xwallpaper --zoom /usr/share/wallpapers/Path/contents/images/1920x1080.jpg --output DVI-0 --output HDMI-0")
+    end
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)

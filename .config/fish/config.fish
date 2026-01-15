@@ -7,6 +7,7 @@ if status is-interactive
     abbr dgit "dotfiles-git"
     abbr pacman "pacman --color="always""
     abbr matrix "cmatrix -s"
+    abbr lg "lazygit"
     set -g EDITOR  vim
     set -g VISUAL  gvim
     set -g PATH  "$HOME/bin:$PATH"  # Commands to run in interactive sessions can go here

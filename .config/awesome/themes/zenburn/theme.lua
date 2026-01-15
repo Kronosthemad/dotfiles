@@ -8,7 +8,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 
 -- {{{ Main
 local theme = {}
-theme.wallpaper = themes_path .. "zenburn/zenburn-background.png"
+theme.wallpaper = themes_path .. "/home/kronos/.config/wallpapers/Path/contents/images/1920x1080.jpg"
 -- }}}
 
 -- {{{ Styles
