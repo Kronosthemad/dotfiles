@@ -157,23 +157,27 @@ alias bd='cd "$OLDPWD"'
 alias rmd='/bin/rm  --recursive --force --verbose '
 
 # Alias's for multiple directory listing commands
-alias la='ls -Alh'                # show hidden files
-alias ls='ls -aFh --color=always' # add colors and file type extensions
-alias lx='ls -lXBh'               # sort by extension
-alias lk='ls -lSrh'               # sort by size
-alias lc='ls -ltcrh'              # sort by change time
-alias lu='ls -lturh'              # sort by access time
-alias lr='ls -lRh'                # recursive ls
-alias lt='ls -ltrh'               # sort by date
-alias lm='ls -alh |more'          # pipe through 'more'
-alias lw='ls -xAh'                # wide listing format
-alias ll='ls -Fls'                # long listing format
-alias labc='ls -lap'              # alphabetical sort
-alias lf="ls -l | egrep -v '^d'"  # files only
-alias ldir="ls -l | egrep '^d'"   # directories only
-alias lla='ls -Al'                # List and Hidden Files
-alias las='ls -A'                 # Hidden Files
-alias lls='ls -l'                 # List
+if command -v eza &> /dev/null ; then
+    alias ls='eza --tree --level 1 --long --icons --git --almost-all --group-directories-first'
+else
+    alias la='ls -Alh'                # show hidden files
+    alias ls='ls -aFh --color=always' # add colors and file type extensions
+    alias lx='ls -lXBh'               # sort by extension
+    alias lk='ls -lSrh'               # sort by size
+    alias lc='ls -ltcrh'              # sort by change time
+    alias lu='ls -lturh'              # sort by access time
+    alias lr='ls -lRh'                # recursive ls
+    alias lt='ls -ltrh'               # sort by date
+    alias lm='ls -alh |more'          # pipe through 'more'
+    alias lw='ls -xAh'                # wide listing format
+    alias ll='ls -Fls'                # long listing format
+    alias labc='ls -lap'              # alphabetical sort
+    alias lf="ls -l | egrep -v '^d'"  # files only
+    alias ldir="ls -l | egrep '^d'"   # directories only
+    alias lla='ls -Al'                # List and Hidden Files
+    alias las='ls -A'                 # Hidden Files
+    alias lls='ls -l'                 # List
+fi
 
 # alias chmod commands
 alias mx='chmod a+x'

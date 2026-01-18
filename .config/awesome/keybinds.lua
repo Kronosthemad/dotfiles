@@ -92,7 +92,8 @@ globalkeys = gears.table.join(
     	      {description = "launch browser", group = "launcher"}),
     awful.key({ modkey            }, "y",     function () awful.spawn("/opt/google/chrome/google-chrome --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml") end,
     	      {description = "launch youtube", group = "launcher"}),
-
+    awful.key({                   }, "F12",   function () awful.spawn.with_shell("qdbus org.kde.yakuake /yakuake/MainWindow_1 toggleWindowState") end,
+	      {description = "toggle yakuake", group = "launcher"}),
     awful.key({ modkey, "Control" }, "n",
               function ()
                   local c = awful.client.restore()
@@ -113,6 +114,8 @@ globalkeys = gears.table.join(
     awful.key({ modkey },             "g",     function() awful.spawn("gvim") end,
     	      { description = "Launch Gvim",   group = "launcher" }),
 
+    awful.key({ modkey },             "e",     function () awful.spawn("emacsclient -r") end,
+              { description = "Launch Emacs",  group = "launcher" }),
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run {

@@ -126,7 +126,7 @@ layout {
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
     // - "always", the focused column will always be centered.
-    // - "on-overflow", focusing a column will center it if it doesn't fit
+    // - "on-overflow", focusing a column will center it if it doesn\'t fit
     //   together with the previously focused column.
     center-focused-column "never"
 
@@ -155,7 +155,7 @@ layout {
     // behind windows. That is, they will show up through semitransparent windows.
     // This is because windows using client-side decorations can have an arbitrary shape.
     //
-    // If you don't like that, you should uncomment `prefer-no-csd` below.
+    // If you don\'t like that, you should uncomment `prefer-no-csd` below.
     // Niri will draw focus ring and border *around* windows that agree to omit their
     // client-side decorations.
     //
@@ -200,7 +200,7 @@ layout {
          inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
     }
 
-    // You can also add a border. It's similar to the focus ring, but always visible.
+    // You can also add a border. It\'s similar to the focus ring, but always visible.
     border {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
@@ -279,6 +279,7 @@ layout {
 spawn-at-startup "waybar"
 spawn-at-startup "mako"
 spawn-sh-at-startup "wpaperd -c /home/kronos/.config/wpaperd/config.toml"
+spawn-sh-at-startup "emacs --daemon"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
 
@@ -317,7 +318,7 @@ animations {
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Window-Rules
 
-// Work around WezTerm's initial configure bug
+// Work around WezTerm\'s initial configure bug
 // by setting an empty default-column-width.
 window-rule {
     // This regular expression is intentionally made as specific as possible,
@@ -374,9 +375,9 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
-
+    Mod+E hotkey-overlay-title="Open The Emacs Client" { spawn-sh "emacsclient -r" }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
-    // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
+    // Note: the entire command goes as a single argument. It\'s passed verbatim to `sh -c`.
     // For example, this is a standard bind to toggle the screen reader (orca).
     Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 
@@ -488,7 +489,7 @@ binds {
     //
     // To avoid scrolling through workspaces really fast, you can use
     // the cooldown-ms property. The bind will be rate-limited to this value.
-    // You can set a cooldown on any bind, but it's most useful for the wheel.
+    // You can set a cooldown on any bind, but it\'s most useful for the wheel.
     Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
     Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
@@ -509,7 +510,7 @@ binds {
     // Similarly, you can bind touchpad scroll "ticks".
     // Touchpad scrolling is continuous, so for these binds it is split into
     // discrete intervals.
-    // These binds are also affected by touchpad's natural-scroll, so these
+    // These binds are also affected by touchpad\'s natural-scroll, so these
     // example binds are "inverted", since we have natural-scroll enabled for
     // touchpads by default.
     // Mod+TouchpadScrollDown { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+"; }
@@ -615,8 +616,8 @@ binds {
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
     // so they may, for example, forward the key presses as-is to a remote machine.
-    // It's a good idea to bind an escape hatch to toggle the inhibitor,
-    // so a buggy application can't hold your session hostage.
+    // It\'s a good idea to bind an escape hatch to toggle the inhibitor,
+    // so a buggy application can\'t hold your session hostage.
     //
     // The allow-inhibiting=false property can be applied to other binds as well,
     // which ensures niri always processes them, even when an inhibitor is active.

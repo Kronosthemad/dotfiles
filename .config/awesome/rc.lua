@@ -151,21 +151,7 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
-local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    elseif awful.spawn("nitrogen") then
-        awful.spawn("nitrogen --restore")
-    else
-        awful.spawn("xwallpaper --zoom /usr/share/wallpapers/Path/contents/images/1920x1080.jpg --output DVI-0 --output HDMI-0")
-    end
-end
+local function set_wallpaper(s) awful.spawn("xwallpaper --zoom /usr/share/wallpapers/Path/contents/images/1920x1080.jpg --output DVI-0 --output HDMI-0") end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
@@ -345,7 +331,18 @@ awful.rules.rules = {
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = false }
     },
+    {rule_any = {
+    id         = "yakuake",
+    rule       = { class = "yakuake" },
+    properties = {
+        floating = true,
+        sticky   = true,
+        ontop    = true,
+        border_width = 0,
+    } 
+  } 
 
+ }
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
@@ -407,6 +404,7 @@ client.connect_signal("request::titlebars", function(c)
     }
 end)
 
+
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
@@ -421,3 +419,5 @@ client.connect_signal("focus", function(c) c.border_color = beautiful.border_foc
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 awful.spawn.with_shell("picom")
+awful.spawn.with_shell("yakuake")
+awful.spawn.with_shell("emacs --daemon")

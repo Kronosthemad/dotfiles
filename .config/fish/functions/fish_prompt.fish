@@ -67,8 +67,10 @@ function fish_prompt
         end
     
         echo -n (prompt_hostname)
-        set_color -o white
-        echo -n :(prompt_pwd)
+	set_color -o green
+	echo -n ']-['
+        set_color -o purple
+        echo -n (pwd)
         set_color -o green
         echo -n ']'
     
