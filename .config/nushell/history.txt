@@ -79,3 +79,47 @@ exit
 mv PowerShell powershell
 ls
 exit
+ls
+git status
+ps
+clear
+cargo install
+cargo install --path .
+cargo install --path ./target/debug/nu
+cargo install --path ./target/debug/
+ls
+cd target
+ls
+cd release/
+ls
+cd build
+ls
+..
+ls
+..
+ls
+cd debug
+ls
+cp nu ~/bin/
+cd
+ls
+exit
+nu
+exit
+./nu
+exit
+..
+ls
+cd .config
+ls
+cd emacs
+..
+cd .emacs.d/
+..
+cd .doom
+cd .doom.d/
+ls
+vim config.el
+killall emacs
+ps -a
+exit
