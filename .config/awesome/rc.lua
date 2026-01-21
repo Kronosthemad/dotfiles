@@ -50,11 +50,13 @@ do
         end
         in_error = true
 
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, you messed up something, an error happened!",
-                         text = tostring(err),
-			 icon = "/usr/share/icons/Pop/scalable/status/dialog-warning-symbolic.svg"
-		 })
+        -- DISABLED FOR TESTING: Uncomment below to re-enable error notifications
+        -- naughty.notify({ preset = naughty.config.presets.critical,
+        --                  title = "Oops, you messed up something, an error happened!",
+        --                  text = tostring(err),
+        -- 		 icon = "/usr/share/icons/Pop/scalable/status/dialog-warning-symbolic.svg"
+        -- 	 })
+
         in_error = false
     end)
 end
@@ -72,9 +74,12 @@ beautiful.border_focus = "#634087"
 
 function refresh_borders(color)
     beautiful.border_focus = color
-    for _, c in ipairs(client.get()) do
-        if c == client.focus then
-            c.border_color = color
+    local clients = client.get()
+    if clients then
+        for _, c in ipairs(clients) do
+            if c == client.focus then
+                c.border_color = color
+            end
         end
     end
 end
@@ -195,11 +200,7 @@ function apply_keys(source_tables)
         end)
 
         if not status then
-            naughty.notify({
-                preset = naughty.config.presets.critical,
-                title = "Keybind Error",
-                text = "Failed to apply keys: " .. tostring(result)
-            })
+            -- Keybind error occurred, but hiding notification for now
         end
     end
 end
@@ -236,12 +237,10 @@ function toggle_key_mode()
     local target
 
     if current_mode == "standard" then
-        naughty.notify({ title = "Mode Switching", text = "Using KEYCORD Mode (Leader: Mod4)" })
         target = "Corded"
         apply_keys({ corded_keys, shared_keys })
         update_mode_widget("Corded")
     else
-        naughty.notify({ title = "Mode Switching", text = "Using STANDARD Mode" })
         target = "Standard"
         apply_keys({ standard_keys, shared_keys })
         update_mode_widget("Standard")
@@ -254,14 +253,10 @@ function toggle_key_mode()
     update_mode_widget(display_state)
 
      if current_mode:lower() ~= current_state:lower() then
-         update_mode_widget(current_mode)
-         refresh_borders("#634087")
-     end
-    root.keys(new_keys)
-    naughty.notify({
-        title = "Mode Switched",
-        text = "Now in " .. current_mode:upper() .. " mode"
-    })
+          update_mode_widget(current_mode)
+          refresh_borders("#634087")
+      end
+    apply_keys(new_keys)
 end
 
 
@@ -372,6 +367,50 @@ local cw = calendar_widget({
 })
 
 
+client_keys = gears.table.join(
+awful.key({ modkey,           }, "f",
+        function (c)
+            c.fullscreen = not c.fullscreen
+            c:raise()
+        end,
+        {description = "toggle fullscreen", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+              {description = "close", group = "client"}),
+    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+              {description = "toggle floating", group = "client"}),
+    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+              {description = "move to master", group = "client"}),
+    awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
+              {description = "move to screen", group = "client"}),
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
+              {description = "toggle keep on top", group = "client"}),
+    awful.key({ modkey,           }, "n",
+        function (c)
+            -- The client currently has the input focus, so it cannot be
+            -- minimized, since minimized clients can't have the focus.
+            c.minimized = true
+        end ,
+        {description = "minimize", group = "client"}),
+    awful.key({ modkey,           }, "m",
+        function (c)
+            c.maximized = not c.maximized
+            c:raise()
+        end ,
+        {description = "(un)maximize", group = "client"}),
+    awful.key({ modkey, "Control" }, "m",
+        function (c)
+            c.maximized_vertical = not c.maximized_vertical
+            c:raise()
+        end ,
+        {description = "(un)maximize vertically", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "m",
+        function (c)
+            c.maximized_horizontal = not c.maximized_horizontal
+            c:raise()
+        end ,
+        {description = "(un)maximize horizontally", group = "client"})
+)
+
 clientbuttons = gears.table.join(
     awful.button({ }, 1, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
@@ -438,7 +477,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
+      }, properties = { titlebars_enabled = true }
     },
     {rule_any = {
     id         = "yakuake",
@@ -523,56 +562,9 @@ mytextclock:connect_signal("button::press",
     function(_, _, _, button)
         if button == 1 then cw.toggle() end
     end)
-  -- Client keys
+   -- Client keys
 
 
-
-
-
-
-client_keys = gears.table.join({
-awful.key({ modkey,           }, "f",
-        function (c)
-            c.fullscreen = not c.fullscreen
-            c:raise()
-        end,
-        {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
-              {description = "close", group = "client"}),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
-              {description = "toggle floating", group = "client"}),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
-              {description = "move to master", group = "client"}),
-    awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
-              {description = "move to screen", group = "client"}),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
-              {description = "toggle keep on top", group = "client"}),
-    awful.key({ modkey,           }, "n",
-        function (c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end ,
-        {description = "minimize", group = "client"}),
-    awful.key({ modkey,           }, "m",
-        function (c)
-            c.maximized = not c.maximized
-            c:raise()
-        end ,
-        {description = "(un)maximize", group = "client"}),
-    awful.key({ modkey, "Control" }, "m",
-        function (c)
-            c.maximized_vertical = not c.maximized_vertical
-            c:raise()
-        end ,
-        {description = "(un)maximize vertically", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "m",
-        function (c)
-            c.maximized_horizontal = not c.maximized_horizontal
-            c:raise()
-        end ,
-        {description = "(un)maximize horizontally", group = "client"}),
-})
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
