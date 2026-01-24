@@ -51,11 +51,11 @@ do
         in_error = true
 
         -- DISABLED FOR TESTING: Uncomment below to re-enable error notifications
-        -- naughty.notify({ preset = naughty.config.presets.critical,
-        --                  title = "Oops, you messed up something, an error happened!",
-        --                  text = tostring(err),
-        -- 		 icon = "/usr/share/icons/Pop/scalable/status/dialog-warning-symbolic.svg"
-        -- 	 })
+         naughty.notify({ preset = naughty.config.presets.critical,
+                        title = "Oops, you messed up something, an error happened!",
+                        text = tostring(err),
+                        icon = "/usr/share/icons/Pop/scalable/status/dialog-warning-symbolic.svg"
+         })
 
         in_error = false
     end)

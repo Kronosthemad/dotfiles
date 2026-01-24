@@ -12,7 +12,7 @@ import = [
 title = "Alacritty"
 decorations = "none"
 blur = true
-opacity = 0.6
+opacity = 0.9
 padding.x = 10
 padding.y = 10
 

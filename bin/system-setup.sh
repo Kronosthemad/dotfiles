@@ -21,7 +21,7 @@ detect_package_manager() {
             if command -v apt &> /dev/null; then
                 PM="apt"
                 INSTALL_CMD="apt install -y"
-                UPDATE_CMD="apt update"
+                UPDATE_CMD="apt update && sudo apt upgrade"
             fi
             ;;
         *fedora*|*rhel*|*centos*|*rocky*|*almalinux*)
@@ -39,7 +39,7 @@ detect_package_manager() {
             if command -v pacman &> /dev/null; then
                 PM="pacman"
                 INSTALL_CMD="pacman -S --noconfirm"
-                UPDATE_CMD="pacman -Sy"
+                UPDATE_CMD="pacman -Syu"
             fi
             ;;
         *alpine*)
@@ -79,8 +79,6 @@ echo "Detected: $PM"
 echo "Running update..."
 sudo $UPDATE_CMD
 
-echo "Installing git..."
-sudo $INSTALL_CMD git
 echo "installing tk..."
 sudo $INSTALL_CMD tk
 echo "Installing tcl..."
@@ -125,7 +123,10 @@ echo "Installing tmux..."
 sudo $INSTALL_CMD tmux
 echo "Installing alacritty..."
 sudo $INSTALL_CMD alacritty
-
+echo "Installing xwallpaper..."
+sudo $INSTALL_CMD xwallpaper
+echo "Installing awesome"
+sudo $INSTALL_CMD awesome
 
 # Capital 'Y' signals it is the default
 read -rp "Do you want to setup kde-builder? [y/N]: " choice
